@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Havox effects layer. Pairs with assets/js/effects.js
+   Uses the independent CSS properties translate / rotate / scale so it never
+   clashes with the Webflow interactions that animate `transform`.
+   ========================================================================== */
+:root{
+  --fx-ink:#0d0d0d;
+  --fx-ease:cubic-bezier(.2,.8,.2,1);
+  --fx-silver:linear-gradient(110deg,#fff 0%,#9c9c9c 38%,#fff 52%,#7d7d7d 100%);
+  --fx-ink-grad:linear-gradient(110deg,#1a1a1a 0%,#8a8a8a 40%,#1a1a1a 60%,#6b6b6b 100%);
+}
+
+/* ---------- 1. Gradient waves (hero) ---------- */
+.fx-waves{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%;pointer-events:none;z-index:0;display:block}
+.section.hero{position:relative;overflow:clip}
+
+/* ---------- 5. Gradient text ---------- */
+.fx-gradient-text{
+  background-image:var(--fx-ink-grad);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:fx-sheen 6s linear infinite;
+}
+.fx-gradient-text .fx-char{background-image:var(--fx-ink-grad);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:fx-sheen 6s linear infinite}
+.hx-dark .fx-gradient-text,.hx-dark .fx-gradient-text .fx-char{background-image:var(--fx-silver)}
+@keyframes fx-sheen{to{background-position:-220% 0}}
+
+/* ---------- 3. Scroll reveal  /  8. Split text ---------- */
+.fx-ready [data-fx="reveal"]{opacity:0;translate:0 44px;transition:opacity .9s var(--fx-ease),translate .9s var(--fx-ease);transition-delay:var(--d,0s)}
+.fx-ready [data-fx="reveal"].is-in{opacity:1;translate:0 0}
+.fx-split .fx-word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.fx-split .fx-char{display:inline-block;translate:0 110%;rotate:6deg;opacity:0;transition:translate .8s var(--fx-ease),rotate .8s var(--fx-ease),opacity .6s ease;transition-delay:calc(var(--i)*22ms)}
+.fx-split.is-in .fx-char{translate:0 0;rotate:0deg;opacity:1}
+
+/* ---------- Bands ---------- */
+.hx-band{padding:var(--_spacing---medium) 0;overflow:clip;position:relative}
+/* 2. Scroll text */
+.hx-scrolltext{display:flex;flex-direction:column;gap:.4rem;user-select:none}
+.hx-scrolltext-row{display:flex;white-space:nowrap;width:max-content;font-size:clamp(3.2rem,9vw,8.5rem);line-height:1.02;font-weight:500;letter-spacing:-.04em;will-change:translate}
+.hx-scrolltext-row span,.hx-scrolltext-row i{padding-right:.35em;font-style:normal}
+.hx-scrolltext-row i{font-size:.5em;align-self:center;opacity:.5}
+.hx-scrolltext-row.hx-outline span{color:transparent;-webkit-text-stroke:1.5px var(--fx-ink)}
+/* 9. Elastic reel (draggable, skews with velocity) */
+.hx-reel{margin-top:3rem;overflow:hidden;cursor:grab;touch-action:pan-y;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.hx-reel.is-dragging{cursor:grabbing}
+.hx-reel-track{display:flex;gap:.75rem;width:max-content;will-change:transform;padding:.5rem 0}
+.hx-reel-item{display:inline-flex;align-items:center;gap:.6rem;padding:1.1rem 2rem;border-radius:999px;background:var(--_color---grey--08);border:1px solid var(--_color---grey--07);font-size:clamp(1.1rem,2vw,1.6rem);font-weight:500;white-space:nowrap;user-select:none}
+.hx-reel-item:nth-child(3n+1){background:var(--fx-ink);color:#fff;border-color:var(--fx-ink)}
+.hx-reel-item::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:currentColor;opacity:.55}
+/* 6. Curved loop text */
+.hx-curve{padding:var(--_spacing---small) 0;overflow:clip}
+.hx-curve svg{display:block;width:100%;height:auto;overflow:visible}
+.hx-curve text{font-size:92px;font-weight:500;letter-spacing:-.03em;fill:var(--fx-ink)}
+.hx-curve .hx-curve-ghost{fill:none;stroke:var(--_color---grey--07);stroke-width:1.5}
+
+/* ---------- 14 Glass  /  13 Liquid  /  11 Bento  (Achievements) ---------- */
+.hx-dark{background:var(--fx-ink);color:#fff;position:relative;overflow:clip;isolation:isolate}
+.hx-dark .heading-style-h2{color:#fff}
+.hx-dark .subheading-text,.hx-dark .eye-brow-text{color:rgba(255,255,255,.7)}
+.hx-dark .eye-brow-number{color:rgba(255,255,255,.55)}
+.hx-dark .eye-brow-dot{background-color:#fff}
+.hx-liquid{position:absolute;inset:0;z-index:-1;filter:url(#fx-goo);opacity:.15;pointer-events:none;overflow:hidden}
+.hx-blob{position:absolute;border-radius:50%;background:#fff;will-change:translate}
+.hx-blob.b1{width:340px;height:340px;left:6%;top:8%;animation:fx-drift1 19s ease-in-out infinite}
+.hx-blob.b2{width:260px;height:260px;right:8%;top:22%;animation:fx-drift2 23s ease-in-out infinite}
+.hx-blob.b3{width:420px;height:420px;left:38%;bottom:-8%;animation:fx-drift3 27s ease-in-out infinite}
+.hx-blob.b4{width:180px;height:180px;left:70%;bottom:20%;animation:fx-drift1 17s ease-in-out infinite reverse}
+.hx-blob.follow{width:150px;height:150px;left:0;top:0}
+@keyframes fx-drift1{50%{transform:translate(120px,70px) scale(1.15)}}
+@keyframes fx-drift2{50%{transform:translate(-140px,90px) scale(.85)}}
+@keyframes fx-drift3{50%{transform:translate(90px,-110px) scale(1.1)}}
+.hx-bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(10.5rem,auto);gap:1rem}
+.hx-tile{position:relative;border-radius:var(--_radius---radius-2xl);padding:1.75rem;display:flex;flex-direction:column;justify-content:space-between;gap:1rem;overflow:hidden;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 20px 50px -20px rgba(0,0,0,.6);
+  transition:background .4s ease,border-color .4s ease}
+.hx-tile:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32)}
+.hx-tile::after{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.16),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.hx-tile:hover::after{opacity:1}
+.hx-tile.t-main{grid-column:span 2;grid-row:span 2;justify-content:flex-end}
+.hx-tile.t-wide{grid-column:span 2}
+.hx-tile.t-full{grid-column:span 4;flex-direction:row;align-items:center;flex-wrap:wrap}
+.hx-tile-label{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.hx-stat-number{font-size:clamp(3rem,6vw,5rem);line-height:1;font-weight:500;letter-spacing:-.04em}
+.hx-tile.t-main .hx-stat-number{font-size:clamp(5rem,12vw,10rem)}
+.hx-tile-text{margin:0;color:rgba(255,255,255,.72);max-width:28ch}
+.hx-dark .hx-chip{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#fff}
+.hx-tile-quote{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:500;letter-spacing:-.02em;line-height:1.15}
+
+/* ---------- 18 Horizontal scroll  /  17 Drag to explore (Audience) ---------- */
+.hx-hscroll{position:relative;background:var(--_color---white--01)}
+.hx-hscroll-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:2rem;padding-top:5.5rem;overflow:hidden}
+.hx-hscroll .heading-style-h2{font-size:clamp(2.4rem,5vw,3.75rem)}
+.hx-hs-viewport{overflow:hidden;cursor:grab;touch-action:pan-y;flex:1;display:flex;align-items:center}
+.hx-hs-track{display:flex;gap:1rem;padding:0 max(2rem,calc((100vw - 80rem)/2));width:max-content;will-change:translate}
+.hx-hs-card{position:relative;flex:0 0 clamp(17rem,26vw,24rem);height:clamp(18rem,44vh,26rem);border-radius:var(--_radius---radius-2xl);padding:1.75rem;display:flex;flex-direction:column;justify-content:space-between;background:var(--_color---grey--08);border:1px solid var(--_color---grey--07);user-select:none;transition:background .4s,color .4s,rotate .5s var(--fx-ease)}
+.hx-hs-card:nth-child(3n+2){background:var(--fx-ink);color:#fff;border-color:var(--fx-ink)}
+.hx-hs-card:hover{rotate:-1.2deg}
+.hx-hs-num{font-size:clamp(4rem,8vw,6.5rem);font-weight:500;letter-spacing:-.05em;line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--fx-ink)}
+.hx-hs-card:nth-child(3n+2) .hx-hs-num{-webkit-text-stroke-color:#fff}
+.hx-hs-card h3{margin:0;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.1;font-weight:500;letter-spacing:-.02em}
+.hx-hs-progress{height:2px;background:var(--_color---grey--07);margin:0 max(2rem,calc((100vw - 80rem)/2))}
+.hx-hs-progress span{display:block;height:100%;background:var(--fx-ink);transform-origin:0 50%;scale:var(--p,0) 1}
+.hx-hscroll.is-native{height:auto!important;padding:var(--_spacing---medium) 0}
+.hx-hscroll.is-native .hx-hscroll-sticky{position:static;height:auto}
+.hx-hscroll.is-native .hx-hs-viewport{display:block;flex:none;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
+.hx-hscroll.is-native .hx-hs-viewport::-webkit-scrollbar{display:none}
+.hx-hscroll.is-native .hx-hs-card{scroll-snap-align:start}
+.hx-hscroll.is-native .hx-hs-track{translate:none!important}
+.hx-hscroll.is-native .hx-hs-progress{display:none}
+
+/* ---------- 10 Expandable profile cards (Portfolio) ---------- */
+.hx-profiles{display:flex;gap:.75rem;height:clamp(30rem,68vh,38rem)}
+.hx-profile{position:relative;flex:1 1 0;min-width:0;cursor:pointer;transition:flex-grow .8s var(--fx-ease);outline:none}
+.hx-profile.is-active{flex-grow:3.4;cursor:default}
+.hx-profile-media{position:absolute;inset:0;border-radius:var(--_radius---radius-2xl);overflow:hidden;background:#222}
+.hx-profile-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.05) 55%)}
+/* 21. Controlled parallax: image is oversized and only moves inside its frame */
+.hx-profile-media img{position:absolute;inset:-9% 0;width:100%;height:118%;object-fit:cover;object-position:center top;scale:1.04;transition:scale 1s var(--fx-ease);will-change:translate}
+.hx-profile.is-active .hx-profile-media img{scale:1}
+.hx-profile-label{position:absolute;left:1.5rem;bottom:1.5rem;right:1.5rem;color:#fff;z-index:2;transition:opacity .35s ease,translate .5s var(--fx-ease)}
+.hx-profile-label b{display:block;font-size:1.4rem;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.hx-profile-label small{display:block;margin-top:.35rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.hx-profile:not(.is-active) .hx-profile-label b{writing-mode:vertical-rl;rotate:180deg;font-size:1.25rem}
+.hx-profile.is-active .hx-profile-label{opacity:0;translate:0 12px}
+.hx-profile-body{position:absolute;left:1rem;right:1rem;bottom:1rem;z-index:3;padding:1.4rem 1.6rem;border-radius:calc(var(--_radius---radius-2xl) - .6rem);color:#fff;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:2rem;row-gap:.5rem;align-items:start;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
+  opacity:0;translate:0 30px;pointer-events:none;transition:opacity .45s ease,translate .7s var(--fx-ease)}
+.hx-profile.is-active .hx-profile-body{opacity:1;translate:0 0;pointer-events:auto;transition-delay:.25s}
+.hx-profile-role{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.hx-profile-name{margin:0;font-size:clamp(1.7rem,2.8vw,2.4rem);line-height:1.05;font-weight:500;letter-spacing:-.03em}
+.hx-profile-role,.hx-profile-name,.hx-profile-text{grid-column:1}
+.hx-profile-text{margin:0;opacity:.88;max-width:52ch;font-size:.95rem;line-height:1.45}
+.hx-profile-body .hx-chips{grid-column:2;grid-row:1 / span 2;align-content:start;justify-content:flex-start}
+.hx-profile-body .hx-btn{grid-column:2;grid-row:3;justify-self:start;align-self:end}
+.hx-profile-body .hx-chip{padding:.35rem .8rem;font-size:.85rem}
+.hx-profile .hx-chip{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+/* 7. Circular text around a component */
+.hx-ring{position:absolute;top:-1.8rem;right:1.4rem;width:9rem;height:9rem;z-index:4;pointer-events:none;opacity:0;scale:.6;transition:opacity .5s ease .35s,scale .8s var(--fx-ease) .35s}
+.hx-profile.is-active .hx-ring{opacity:1;scale:1}
+.hx-ring svg{width:100%;height:100%;overflow:visible;animation:fx-spin 22s linear infinite}
+.hx-ring text{font-size:15.5px;font-weight:600;letter-spacing:.04em;fill:var(--fx-ink);text-transform:uppercase}
+.hx-ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:#fff;box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+.hx-ring::after{content:"\2197";position:absolute;inset:0;display:grid;place-items:center;font-size:1.9rem;color:var(--fx-ink)}
+.hx-ring svg{position:relative;z-index:1}
+@keyframes fx-spin{to{transform:rotate(360deg)}}
+
+/* ---------- 12 Morphing button  /  19 Magnetic target ---------- */
+.hx-btn{position:relative;display:inline-flex;align-items:center;gap:.85rem;align-self:flex-start;padding:.95rem 1.6rem;background:#fff;color:var(--fx-ink);font-weight:500;text-decoration:none;border-radius:999px;overflow:hidden;isolation:isolate;
+  transition:border-radius .8s var(--fx-ease),padding .6s var(--fx-ease),color .4s ease,background .4s ease;will-change:translate}
+.hx-btn::before{content:"";position:absolute;left:50%;top:50%;width:0;height:0;border-radius:50%;background:var(--fx-ink);translate:-50% -50%;z-index:-1;transition:width .7s var(--fx-ease),height .7s var(--fx-ease)}
+.hx-btn:hover,.hx-btn:focus-visible{color:#fff;border-radius:42% 58% 52% 48% / 58% 44% 56% 42%;padding-inline:2.1rem;animation:fx-wobble 3.2s ease-in-out infinite}
+.hx-btn:hover::before,.hx-btn:focus-visible::before{width:140%;height:340%}
+.hx-btn-icon{display:inline-grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--fx-ink);color:#fff;font-size:.95rem;transition:rotate .6s var(--fx-ease),background .4s,color .4s}
+.hx-btn:hover .hx-btn-icon{rotate:45deg;background:#fff;color:var(--fx-ink)}
+@keyframes fx-wobble{50%{border-radius:58% 42% 44% 56% / 46% 58% 42% 54%}}
+
+/* ---------- 15 Dynamic listing  /  16 Dynamic grid (Fathah projects) ---------- */
+.hx-projects{margin-top:4rem}
+.hx-projects-head{display:flex;flex-wrap:wrap;gap:1.25rem 2rem;align-items:flex-end;justify-content:space-between;margin-bottom:1.5rem}
+.hx-projects-title{margin:0;font-size:var(--font-size--title-xl);line-height:1.05;font-weight:500;letter-spacing:-.03em}
+.hx-projects-sub{margin:.5rem 0 0;color:var(--_color---black--02)}
+.hx-toolbar{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.hx-filters,.hx-viewtoggle{display:flex;flex-wrap:wrap;gap:.35rem;padding:.3rem;border-radius:999px;background:var(--_color---grey--08);border:1px solid var(--_color---grey--07)}
+.hx-pill{appearance:none;border:0;background:transparent;cursor:pointer;font:inherit;font-size:.9rem;padding:.5rem 1rem;border-radius:999px;color:var(--_color---black--02);transition:background .3s,color .3s}
+.hx-pill:hover{background:rgba(0,0,0,.06)}
+.hx-pill[aria-pressed="true"]{background:var(--fx-ink);color:#fff}
+.hx-project-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.hx-project{display:block;min-width:0}
+.hx-project a{position:relative;display:grid;align-content:start;grid-template-columns:auto 1fr auto;grid-template-areas:"idx cat arrow" "main main main";gap:.5rem 1rem;align-items:start;height:100%;padding:1.4rem;border-radius:var(--_radius---radius-xl);background:var(--_color---grey--08);border:1px solid var(--_color---grey--07);text-decoration:none;color:inherit;transition:background .4s,color .4s,border-color .4s}
+.hx-project a:hover{background:var(--fx-ink);color:#fff;border-color:var(--fx-ink)}
+.hx-project-index{grid-area:idx;font-size:.8rem;letter-spacing:.1em;opacity:.55}
+.hx-project-cat{grid-area:cat;justify-self:start;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border-radius:999px;border:1px solid currentColor;opacity:.7}
+.hx-project-arrow{grid-area:arrow;transition:rotate .5s var(--fx-ease)}
+.hx-project a:hover .hx-project-arrow{rotate:45deg}
+.hx-project-main{grid-area:main;display:flex;flex-direction:column;gap:.4rem;margin-top:1.8rem}
+.hx-project-name{font-size:1.5rem;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.hx-project-desc{opacity:.72;font-size:.95rem;line-height:1.4}
+.hx-projects[data-view="list"] .hx-project-list{grid-template-columns:1fr;gap:0}
+.hx-projects[data-view="list"] .hx-project a{grid-template-columns:3rem minmax(0,1fr) 9rem 2rem;grid-template-areas:"idx main cat arrow";align-items:center;border-radius:0;border-width:0 0 1px;background:transparent;padding:1.1rem .5rem}
+.hx-projects[data-view="list"] .hx-project a:hover{border-radius:var(--_radius---radius-m)}
+.hx-projects[data-view="list"] .hx-project-main{flex-direction:row;align-items:baseline;gap:1.25rem;margin-top:0;flex-wrap:wrap}
+.hx-projects[data-view="list"] .hx-project-name{font-size:1.35rem}
+.hx-project[hidden]{display:none}
+
+/* ---------- 24 Cursor with context ---------- */
+.fx-cursor,.fx-cursor-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:2147483000;opacity:0;will-change:transform}
+.fx-cursor{width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#fff;mix-blend-mode:difference}
+.fx-cursor-ring{width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1.5px solid #fff;mix-blend-mode:difference;display:grid;place-items:center;transition:width .35s var(--fx-ease),height .35s var(--fx-ease),margin .35s var(--fx-ease),background .35s,border-color .35s}
+.fx-cursor-ring span{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#000;opacity:0;transition:opacity .25s}
+.fx-cursor-on .fx-cursor,.fx-cursor-on .fx-cursor-ring{opacity:1}
+.fx-cursor-on.fx-cursor-hide .fx-cursor,.fx-cursor-on.fx-cursor-hide .fx-cursor-ring{opacity:0}
+.fx-cursor-ring.is-link{width:70px;height:70px;margin:-35px 0 0 -35px}
+.fx-cursor-ring.has-label{width:92px;height:92px;margin:-46px 0 0 -46px;background:#fff;border-color:#fff}
+.fx-cursor-ring.has-label span{opacity:1}
+.fx-cursor-ring.is-down{width:30px;height:30px;margin:-15px 0 0 -15px}
+html.fx-cursor-on,html.fx-cursor-on *{cursor:none!important}
+html.fx-cursor-on input,html.fx-cursor-on textarea,html.fx-cursor-on select{cursor:text!important}
+
+/* ---------- 23 Page transitions ---------- */
+.fx-curtain{position:fixed;inset:0;z-index:2147483100;pointer-events:none;display:flex;visibility:hidden}
+.fx-curtain.is-active{visibility:visible;pointer-events:auto}
+.fx-curtain i{flex:1;background:var(--fx-ink);translate:0 101%;transition:translate .65s var(--fx-ease);transition-delay:calc(var(--n)*55ms)}
+.fx-curtain.is-in i{translate:0 0}
+.fx-curtain.is-out i{translate:0 -101%}
+.fx-curtain.no-anim i{transition:none!important}
+.fx-curtain b{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:clamp(2rem,6vw,4.5rem);font-weight:500;letter-spacing:-.04em;opacity:0;transition:opacity .35s ease .25s}
+.fx-curtain.is-in b{opacity:1}
+.fx-curtain.is-out b{opacity:0;transition-delay:0s}
+
+/* ---------- Responsive ---------- */
+@media (max-width:991px){
+  .hx-profile-body{display:flex;flex-direction:column;gap:.6rem}
+  .hx-bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hx-tile.t-main,.hx-tile.t-full{grid-column:span 2}
+  .hx-project-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:767px){
+  .hx-profiles{flex-direction:column;height:auto}
+  .hx-profile{flex:none;height:9.5rem;transition:height .8s var(--fx-ease)}
+  .hx-profile.is-active{height:33rem}
+  .hx-profile:not(.is-active) .hx-profile-label b{writing-mode:horizontal-tb;rotate:0deg}
+  .hx-ring{width:6.5rem;height:6.5rem;top:-2.5rem;right:.25rem}
+  .hx-profile-body{display:flex;flex-direction:column;gap:.6rem}
+  .hx-bento{grid-template-columns:1fr}
+  .hx-tile.t-main,.hx-tile.t-wide,.hx-tile.t-full{grid-column:span 1}
+  .hx-project-list{grid-template-columns:1fr}
+  .hx-projects[data-view="list"] .hx-project a{grid-template-columns:2.2rem minmax(0,1fr) 1.5rem;grid-template-areas:"idx main arrow"}
+  .hx-projects[data-view="list"] .hx-project-cat{display:none}
+  .hx-curve text{font-size:110px}
+}
+@media (prefers-reduced-motion:reduce){
+  .fx-ready [data-fx="reveal"],.fx-split .fx-char{opacity:1!important;translate:none!important;rotate:none!important;transition:none!important}
+  .fx-gradient-text,.hx-blob,.hx-ring svg,.hx-btn:hover{animation:none!important}
+  .fx-curtain{display:none}
+}

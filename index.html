@@ -137,6 +137,7 @@
       ]
     }
   </script>
+  <link href="assets/css/effects.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -564,6 +565,15 @@ a,
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section id="motion-band" class="section hx-band" aria-label="Highlights">
+        <div class="hx-scrolltext" aria-hidden="true">
+          <div class="hx-scrolltext-row" data-dir="1"><span>Speak with purpose</span><i>&#10022;</i><span>Lead with presence</span><i>&#10022;</i></div>
+          <div class="hx-scrolltext-row hx-outline" data-dir="-1"><span>Ideas into influence</span><i>&#10022;</i><span>Clarity is a leadership skill</span><i>&#10022;</i></div>
+        </div>
+        <div class="hx-reel" data-cursor="Drag" aria-label="Focus areas">
+          <div class="hx-reel-track"><span class="hx-reel-item">Public Speaking</span><span class="hx-reel-item">Leadership</span><span class="hx-reel-item">Executive English</span><span class="hx-reel-item">Personal Coaching</span><span class="hx-reel-item">Business Coaching</span><span class="hx-reel-item">Corporate Training</span><span class="hx-reel-item">Keynote &amp; Speech</span><span class="hx-reel-item">Youth &amp; Student</span><span class="hx-reel-item">Arabic Oratory</span></div>
         </div>
       </section>
       <section id="values-section" class="section value">
@@ -1119,6 +1129,13 @@ a,
           </div>
         </div>
       </section>-->
+      <section id="curve-band" class="section hx-curve" aria-hidden="true">
+        <svg viewBox="0 0 1440 440" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <defs><path id="hx-curve-path" d="M-240,330 C 120,40 560,20 780,230 S 1240,420 1700,110"/></defs>
+          <use href="#hx-curve-path" class="hx-curve-ghost" fill="none"/>
+          <text><textPath id="hx-curve-text" href="#hx-curve-path" data-repeat="4" startOffset="0">Speak with purpose • Lead with presence • Speak with purpose • Lead with presence • Speak with purpose • Lead with presence • Speak with purpose • Lead with presence • </textPath></text>
+        </svg>
+      </section>
       <section id="project-section" class="section casestudy">
         <div class="padding-global">
           <div class="container-base">
@@ -1590,7 +1607,11 @@ a,
         </div>
       </div>
       </section>
-      <section id="achievements-section" class="section hx-section">
+      <section id="achievements-section" class="section hx-section hx-dark">
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="fx-goo"><feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></defs></svg>
+        <div class="hx-liquid" aria-hidden="true">
+          <i class="hx-blob b1" data-parallax="0.12"></i><i class="hx-blob b2" data-parallax="0.2"></i><i class="hx-blob b3" data-parallax="0.08"></i><i class="hx-blob b4" data-parallax="0.28"></i><i class="hx-blob follow"></i>
+        </div>
         <div class="padding-global">
           <div class="container-medium">
             <div class="hx-layout">
@@ -1603,40 +1624,74 @@ a,
                   </div>
                 </div>
                 <div class="heading-wrap">
-                  <h2 class="heading-style-h2">Our Achievements</h2>
-                  <p class="subheading-text">Real impact across leaders, institutions and young minds, in four countries.</p>
+                  <h2 class="heading-style-h2" data-fx="split">Our <span class="fx-gradient-text">Achievements</span></h2>
+                  <p class="subheading-text" data-fx="reveal" style="--d:.2s">Real impact across leaders, institutions and young minds, in four countries.</p>
                 </div>
               </div>
-              <div class="hx-stats">
-                <div class="hx-stat"><div class="hx-stat-number">2000+</div><div class="hx-stat-label">Trainees</div></div>
-                <div class="hx-stat"><div class="hx-stat-number">4</div><div class="hx-stat-label">Countries served</div></div>
-                <div class="hx-stat"><div class="hx-stat-number">9</div><div class="hx-stat-label">Audience groups trained</div></div>
-              </div>
-              <div class="hx-panel">
-                <div class="hx-panel-title">Who we have trained</div>
-                <div class="hx-chips">
-                  <span class="hx-chip">Managing Directors</span>
-                  <span class="hx-chip">CEOs</span>
-                  <span class="hx-chip">Managers</span>
-                  <span class="hx-chip">Administrative Heads of Institutions</span>
-                  <span class="hx-chip">Leaders of Popular Organisations</span>
-                  <span class="hx-chip">Start-Up Owners</span>
-                  <span class="hx-chip">Teachers</span>
-                  <span class="hx-chip">Young Professionals</span>
-                  <span class="hx-chip">Passionate Students</span>
+              <div class="hx-bento">
+                <div class="hx-tile t-main" data-fx="reveal" data-float="0.02">
+                  <div class="hx-tile-label">Trainees</div>
+                  <div class="hx-stat-number fx-gradient-text" data-count="2000" data-suffix="+">2000+</div>
+                  <p class="hx-tile-text">Leaders, professionals and students trained to speak with clarity and lead with confidence.</p>
                 </div>
-              </div>
-              <div class="hx-panel">
-                <div class="hx-panel-title">Clients from</div>
-                <div class="hx-chips">
-                  <span class="hx-chip">Dubai</span>
+                <div class="hx-tile" data-fx="reveal" style="--d:.1s" data-float="0.035">
+                  <div class="hx-tile-label">Countries served</div>
+                  <div class="hx-stat-number fx-gradient-text" data-count="4">4</div>
+                </div>
+                <div class="hx-tile" data-fx="reveal" style="--d:.2s" data-float="0.05">
+                  <div class="hx-tile-label">Audience groups</div>
+                  <div class="hx-stat-number fx-gradient-text" data-count="9">9</div>
+                </div>
+                <div class="hx-tile t-wide" data-fx="reveal" style="--d:.15s" data-float="0.03">
+                  <div class="hx-tile-label">Clients from</div>
+                  <div class="hx-chips">
+                    <span class="hx-chip">Dubai</span>
                   <span class="hx-chip">Oman</span>
                   <span class="hx-chip">Qatar</span>
                   <span class="hx-chip">India</span>
+                  </div>
+                </div>
+                <div class="hx-tile t-full" data-fx="reveal" style="--d:.1s">
+                  <div class="hx-tile-quote">Speak with purpose. <span class="fx-gradient-text">Lead with presence.</span></div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section id="audience-section" class="section hx-hscroll">
+        <div class="hx-hscroll-sticky">
+          <div class="padding-global">
+            <div class="container-medium">
+              <div class="heading-layout">
+                <div class="eye-brow">
+                  <div class="eye-brow-number">007</div>
+                  <div class="eye-brow-text-wrap">
+                    <div class="eye-brow-dot"></div>
+                    <div class="eye-brow-text">audience</div>
+                  </div>
+                </div>
+                <div class="heading-wrap">
+                  <h2 class="heading-style-h2" data-fx="split">Who We Have <span class="fx-gradient-text">Trained</span></h2>
+                  <p class="subheading-text" data-fx="reveal" style="--d:.2s">Scroll or drag to meet the people we work with.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hx-hs-viewport" data-cursor="Drag">
+            <div class="hx-hs-track">
+              <article class="hx-hs-card"><span class="hx-hs-num">01</span><h3>Managing Directors</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">02</span><h3>CEOs</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">03</span><h3>Managers</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">04</span><h3>Administrative Heads of Institutions</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">05</span><h3>Leaders of Popular Organisations</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">06</span><h3>Start-Up Owners</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">07</span><h3>Teachers</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">08</span><h3>Young Professionals</h3></article>
+              <article class="hx-hs-card"><span class="hx-hs-num">09</span><h3>Passionate Students</h3></article>
+            </div>
+          </div>
+          <div class="hx-hs-progress"><span></span></div>
         </div>
       </section>
       <section id="portfolio-section" class="section hx-section">
@@ -1645,31 +1700,85 @@ a,
             <div class="hx-layout">
               <div class="heading-layout">
                 <div class="eye-brow">
-                  <div class="eye-brow-number">007</div>
+                  <div class="eye-brow-number">008</div>
                   <div class="eye-brow-text-wrap">
                     <div class="eye-brow-dot"></div>
                     <div class="eye-brow-text">portfolio</div>
                   </div>
                 </div>
                 <div class="heading-wrap">
-                  <h2 class="heading-style-h2">Our Portfolio</h2>
-                  <p class="subheading-text">Meet the trainers behind the work and explore their individual portfolios.</p>
+                  <h2 class="heading-style-h2" data-fx="split">Our <span class="fx-gradient-text">Portfolio</span></h2>
+                  <p class="subheading-text" data-fx="reveal" style="--d:.2s">Explore the individual portfolios of the people behind Havox. Hover or tap a card to open it.</p>
                 </div>
               </div>
-              <div class="hx-portfolio-card">
-                <div class="hx-portfolio-image"><picture><source srcset="assets/images/muhammedali.webp" type="image/webp"><img loading="lazy" src="assets/images/muhammedali.png" alt="Muhammed Ali Habeeb"></picture></div>
-                <div class="hx-portfolio-body">
-                  <div class="hx-portfolio-role">Coach · Speaker · Trainer</div>
-                  <h3 class="hx-portfolio-name">Muhammed Ali Habeeb</h3>
-                  <p class="hx-portfolio-text">International public speaking trainer, business coach and executive English trainer. He helps ambitious people speak with clarity, lead with confidence and turn what they know into what the world remembers.</p>
+              <div class="hx-profiles" data-fx="reveal">
+              <article class="hx-profile is-active" data-cursor="" >
+                <div class="hx-profile-media"><picture><source srcset="assets/images/muhammedali.webp" type="image/webp"><img loading="lazy" data-cparallax="7" src="assets/images/muhammedali.png" alt="Muhammed Ali Habeeb"></picture></div>
+                <div class="hx-profile-label"><b>Muhammed Ali Habeeb</b><small>Coach · Speaker · Trainer</small></div>
+                <div class="hx-ring" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><path id="ring-muhammedali" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#ring-muhammedali" textLength="498" lengthAdjust="spacing">MUHAMMED ALI HABEEB • COACH • SPEAKER • TRAINER • </textPath></text></svg></div>
+                <div class="hx-profile-body">
+                  <div class="hx-profile-role">Coach · Speaker · Trainer</div>
+                  <h3 class="hx-profile-name">Muhammed Ali Habeeb</h3>
+                  <p class="hx-profile-text">International public speaking trainer, business coach and executive English trainer. He helps ambitious people speak with clarity, lead with confidence and turn what they know into what the world remembers.</p>
                   <div class="hx-chips">
                     <span class="hx-chip">Public Speaking</span>
-                    <span class="hx-chip">Leadership</span>
-                    <span class="hx-chip">Executive English</span>
-                    <span class="hx-chip">Personal Coaching</span>
+                  <span class="hx-chip">Leadership</span>
+                  <span class="hx-chip">Executive English</span>
+                  <span class="hx-chip">Personal Coaching</span>
                   </div>
-                  <a href="https://muhammedalihabeeb.vercel.app" target="_blank" rel="noopener" class="hx-portfolio-link">View full portfolio &#8599;</a>
+                  <a href="https://muhammedalihabeeb.vercel.app" target="_blank" rel="noopener" class="hx-btn"><span>View full portfolio</span><span class="hx-btn-icon" aria-hidden="true">&#8599;</span></a>
                 </div>
+              </article>
+              <article class="hx-profile" data-cursor="" >
+                <div class="hx-profile-media"><picture><source srcset="assets/images/Fathah.webp" type="image/webp"><img loading="lazy" data-cparallax="7" src="assets/images/Fathah.png" alt="M. Abdul Fathah"></picture></div>
+                <div class="hx-profile-label"><b>M. Abdul Fathah</b><small>Full Stack Software Developer</small></div>
+                <div class="hx-ring" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><path id="ring-Fathah" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#ring-Fathah" textLength="498" lengthAdjust="spacing">M. ABDUL FATHAH • SOFTWARE ENGINEER • ZIQX • </textPath></text></svg></div>
+                <div class="hx-profile-body">
+                  <div class="hx-profile-role">Full Stack Software Developer</div>
+                  <h3 class="hx-profile-name">M. Abdul Fathah</h3>
+                  <p class="hx-profile-text">Software engineer with 7+ years of experience building scalable web, mobile and cloud products. He turns ambitious ideas into reliable systems, from e-commerce and warehouse platforms to AI-powered apps, and co-founded Ziqx.</p>
+                  <div class="hx-chips">
+                    <span class="hx-chip">Web &amp; Mobile Apps</span>
+                  <span class="hx-chip">E-commerce</span>
+                  <span class="hx-chip">AI Products</span>
+                  <span class="hx-chip">Cloud Systems</span>
+                  </div>
+                  <a href="https://fathaaah.com" target="_blank" rel="noopener" class="hx-btn"><span>View full portfolio</span><span class="hx-btn-icon" aria-hidden="true">&#8599;</span></a>
+                </div>
+              </article>
+              </div>
+              <div class="hx-projects" data-view="grid" data-fx="reveal">
+                <div class="hx-projects-head">
+                  <div>
+                    <h3 class="hx-projects-title">Selected software work</h3>
+                    <p class="hx-projects-sub">By M. Abdul Fathah &middot; <span class="hx-projects-count">10 projects</span></p>
+                  </div>
+                  <div class="hx-toolbar">
+                    <div class="hx-filters" role="group" aria-label="Filter projects">
+                    <button type="button" class="hx-pill" data-filter="All" aria-pressed="true">All</button>
+                    <button type="button" class="hx-pill" data-filter="AI" aria-pressed="false">AI</button>
+                    <button type="button" class="hx-pill" data-filter="Business" aria-pressed="false">Business</button>
+                    <button type="button" class="hx-pill" data-filter="Education" aria-pressed="false">Education</button>
+                    <button type="button" class="hx-pill" data-filter="Tools &amp; apps" aria-pressed="false">Tools &amp; apps</button>
+                    </div>
+                    <div class="hx-viewtoggle" role="group" aria-label="Layout">
+                      <button type="button" class="hx-pill" data-viewbtn="grid" aria-pressed="true">Grid</button>
+                      <button type="button" class="hx-pill" data-viewbtn="list" aria-pressed="false">List</button>
+                    </div>
+                  </div>
+                </div>
+                <ul class="hx-project-list">
+                <li class="hx-project" data-cat="AI"><a href="https://hermesagents.cc" target="_blank" rel="noopener"><span class="hx-project-index">01</span><span class="hx-project-cat">AI</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Hermes Desktop</span><span class="hx-project-desc">Self-learning AI agent desktop companion</span></span></a></li>
+                <li class="hx-project" data-cat="AI"><a href="https://play.google.com/store/apps/details?id=in.ziqx.botbox" target="_blank" rel="noopener"><span class="hx-project-index">02</span><span class="hx-project-cat">AI</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">BotBox</span><span class="hx-project-desc">All AI tools in one place</span></span></a></li>
+                <li class="hx-project" data-cat="Business"><a href="https://qeats.in" target="_blank" rel="noopener"><span class="hx-project-index">03</span><span class="hx-project-cat">Business</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Qeats</span><span class="hx-project-desc">All-in-one restaurant management system</span></span></a></li>
+                <li class="hx-project" data-cat="Business"><a href="https://donordash.ziqx.cc" target="_blank" rel="noopener"><span class="hx-project-index">04</span><span class="hx-project-cat">Business</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">DonorDash</span><span class="hx-project-desc">Donation management system</span></span></a></li>
+                <li class="hx-project" data-cat="Business"><a href="https://cartex.ziqx.cc" target="_blank" rel="noopener"><span class="hx-project-index">05</span><span class="hx-project-cat">Business</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Cartex</span><span class="hx-project-desc">Fully customizable e-commerce framework</span></span></a></li>
+                <li class="hx-project" data-cat="Education"><a href="https://libstackz.ziqx.in" target="_blank" rel="noopener"><span class="hx-project-index">06</span><span class="hx-project-cat">Education</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Libstackz</span><span class="hx-project-desc">Minimal and scalable library management software</span></span></a></li>
+                <li class="hx-project" data-cat="Education"><a href="https://zchool.in" target="_blank" rel="noopener"><span class="hx-project-index">07</span><span class="hx-project-cat">Education</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Zchool</span><span class="hx-project-desc">Customisable school management system</span></span></a></li>
+                <li class="hx-project" data-cat="Tools &amp; apps"><a href="https://www.fathaaah.com/portfolio/debaze" target="_blank" rel="noopener"><span class="hx-project-index">08</span><span class="hx-project-cat">Tools &amp; apps</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Debaze</span><span class="hx-project-desc">GUI database management tool</span></span></a></li>
+                <li class="hx-project" data-cat="Tools &amp; apps"><a href="https://certiption.com" target="_blank" rel="noopener"><span class="hx-project-index">09</span><span class="hx-project-cat">Tools &amp; apps</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Certiption</span><span class="hx-project-desc">Digitally sign certificates with encryption</span></span></a></li>
+                <li class="hx-project" data-cat="Tools &amp; apps"><a href="https://manzilmedia.net/sunnah/" target="_blank" rel="noopener"><span class="hx-project-index">10</span><span class="hx-project-cat">Tools &amp; apps</span><span class="hx-project-arrow" aria-hidden="true">&#8599;</span><span class="hx-project-main"><span class="hx-project-name">Sunnah</span><span class="hx-project-desc">Muslim life app</span></span></a></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -1683,7 +1792,7 @@ a,
             <div class="hx-layout">
               <div class="heading-layout">
                 <div class="eye-brow">
-                  <div class="eye-brow-number">008</div>
+                  <div class="eye-brow-number">009</div>
                   <div class="eye-brow-text-wrap">
                     <div class="eye-brow-dot"></div>
                     <div class="eye-brow-text">events</div>
@@ -2358,6 +2467,7 @@ a,
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=69dd4aefc404bd40458653ab" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="assets/js/webflow.js" type="text/javascript"></script>
   <script src="assets/js/profile-form.js" type="text/javascript"></script>
+  <script src="assets/js/effects.js" type="text/javascript" defer></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.14.2/gsap.min.js" type="text/javascript"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.14.2/SplitText.min.js" type="text/javascript"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.14.2/ScrollTrigger.min.js" type="text/javascript"></script>
