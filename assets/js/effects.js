@@ -532,17 +532,17 @@
       var canScrub = (down && progress < 1) || (up && progress > 0);
       if (!canScrub) return;
       event.preventDefault();
-      var step = event.key === 'ArrowDown' || event.key === 'ArrowUp' ? win.innerHeight * .04 : win.innerHeight * .5;
+      var step = event.key === 'ArrowDown' || event.key === 'ArrowUp' ? win.innerHeight * .08 : win.innerHeight * .5;
       moveProgress((down ? 1 : -1) * step);
     }
     video.addEventListener('loadedmetadata', schedule);
     video.addEventListener('seeked', function () { if (progress >= 1) video.pause(); });
-    win.addEventListener('wheel', onWheel, { passive: false });
+    win.addEventListener('wheel', onWheel, { passive: false, capture: true });
     win.addEventListener('touchstart', onTouchStart, { passive: true });
-    win.addEventListener('touchmove', onTouchMove, { passive: false });
+    win.addEventListener('touchmove', onTouchMove, { passive: false, capture: true });
     win.addEventListener('touchend', onTouchEnd, { passive: true });
     win.addEventListener('touchcancel', onTouchEnd, { passive: true });
-    win.addEventListener('keydown', onKeyDown);
+    win.addEventListener('keydown', onKeyDown, true);
     on(win, 'resize', schedule);
     schedule();
   }
