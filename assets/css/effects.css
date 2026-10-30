@@ -257,3 +257,11 @@ html.fx-cursor-on input,html.fx-cursor-on textarea,html.fx-cursor-on select{curs
 @media(max-width:767px){.hx-neural-hero .hero-section-wrap{min-height:0;padding:7.5rem 0 2rem}.hx-neural-hero .hero-bg-overlay{background:linear-gradient(180deg,#08090bdc,#08090b4d 45%,#08090bf5)}.hx-hero-layout{min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:.2rem;padding:0 1.25rem}.hx-hero-content{order:0;gap:1.1rem}.hx-hero-copy{gap:1.2rem}.hx-neural-hero .hero-eye-brow{font-size:.55rem;letter-spacing:.12em;padding:.6rem .75rem}.hx-hero-heading{font-size:clamp(3.7rem,16vw,5.8rem);max-width:8ch}.hx-hero-subtitle{font-size:1rem;max-width:34ch}.hx-hero-proof{font-size:.52rem;gap:.55rem;flex-wrap:wrap}.hx-brain-stage{order:1;width:min(92vw,440px);margin:-.6rem auto -1.1rem}.hx-stage-caption{font-size:.5rem}.hx-hero-cta-row{order:2;flex-wrap:wrap;gap:1.1rem;padding:0}.hx-hero-cta{padding:.9rem 1rem;gap:1.1rem}.hx-hero-secondary{font-size:.75rem}.hx-brain-label{font-size:.43rem}.hx-orbit-b{inset:3%}}
 @media(max-width:380px){.hx-hero-heading{font-size:3.45rem}.hx-brain-stage{width:100%;margin:-.3rem auto -.7rem}.hx-label-two{right:-2%}.hx-label-one{left:0}}
 @media(prefers-reduced-motion:reduce){.hx-neural-hero *, .hx-neural-hero *::before,.hx-neural-hero *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.hx-brain-core{transform:none!important}}
+
+/* Monochrome speaking studio hero */
+.hx-speaker-stage{width:min(58vw,820px);aspect-ratio:16/9;height:auto;perspective:none;transform:none;overflow:hidden;border-radius:2px;background:#08090b url(assets/videos/havox-hero-poster.jpg) 64% 50%/cover no-repeat;box-shadow:0 24px 80px rgba(0,0,0,.42)}
+.hx-speaker-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:64% 50%;filter:grayscale(1);opacity:.96}
+@media(max-width:991px){.hx-speaker-stage{width:min(52vw,620px);margin-left:-5%}}
+@media(max-width:767px){.hx-speaker-stage{width:min(92vw,480px);aspect-ratio:16/9;margin:-.6rem auto -1.1rem}.hx-speaker-video{object-position:66% 50%}}
+@media(max-width:380px){.hx-speaker-stage{width:100%;margin:-.3rem auto -.7rem}}
+@media(prefers-reduced-motion:reduce){.hx-speaker-video{display:none}}
