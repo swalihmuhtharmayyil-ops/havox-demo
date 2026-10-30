@@ -452,6 +452,9 @@
     var video = hero && hero.querySelector('.hx-speaker-video');
     if (!hero || !video) return;
 
+    var videoStage = video.closest('.hx-speaker-stage');
+    if (videoStage && videoStage.parentElement !== hero) hero.insertBefore(videoStage, hero.firstChild);
+
     video.pause();
     video.removeAttribute('autoplay');
     video.preload = 'auto';
