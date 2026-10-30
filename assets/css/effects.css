@@ -267,7 +267,7 @@ html.fx-cursor-on input,html.fx-cursor-on textarea,html.fx-cursor-on select{curs
 @media(prefers-reduced-motion:reduce){.hx-speaker-video{display:none}}
 
 /* Scroll-scrubbed, pinned hero. The next section enters only after the clip. */
-.hx-neural-hero{height:500svh;min-height:0;overflow:clip!important;position:relative}
+.hx-neural-hero{height:100svh;min-height:0;overflow:clip!important;position:relative}
 .hx-neural-hero .hero-section-wrap{position:sticky;top:0;height:100svh!important;min-height:100svh!important;max-height:100svh;overflow:hidden;justify-content:center;padding:0!important}
 .hx-neural-hero .hero-section-wrap>.padding-global,.hx-neural-hero .container-base.hero{height:100%;width:100%;max-width:none}
 .hx-hero-layout{height:100%;min-height:0;overflow:hidden}
