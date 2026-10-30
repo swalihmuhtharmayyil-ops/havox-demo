@@ -458,13 +458,18 @@
 
     var queued = false;
     var progress = 0;
+    var wheelGestureActive = false;
+    var wheelTimer = 0;
+    var touchY = null;
+    var touchGestureLocked = false;
     var reducedMotion = win.matchMedia && win.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function clamp01(value) { return Math.max(0, Math.min(1, value)); }
+    function heroIsPinned() {
+      var rect = hero.getBoundingClientRect();
+      return rect.top <= 1 && rect.bottom >= win.innerHeight - 1;
+    }
     function render() {
       queued = false;
-      var rect = hero.getBoundingClientRect();
-      var range = Math.max(1, hero.offsetHeight - win.innerHeight);
-      progress = clamp01(-rect.top / range);
       hero.style.setProperty('--hero-progress', progress.toFixed(4));
       hero.style.setProperty('--hero-video-scale', reducedMotion ? '1' : (1 + progress * .045).toFixed(4));
       hero.style.setProperty('--hero-content-y', reducedMotion ? '0px' : (-progress * 20).toFixed(1) + 'px');
@@ -483,10 +488,62 @@
       queued = true;
       win.requestAnimationFrame(render);
     }
+    function moveProgress(delta) {
+      progress = clamp01(progress + delta / Math.max(1, win.innerHeight * 2));
+      schedule();
+    }
+    function onWheel(event) {
+      if (!heroIsPinned() || !event.deltaY) return;
+      var delta = event.deltaY;
+      if (event.deltaMode === 1) delta *= 40;
+      else if (event.deltaMode === 2) delta *= win.innerHeight;
+      var canScrub = (delta > 0 && progress < 1) || (delta < 0 && progress > 0);
+      if (canScrub || wheelGestureActive) {
+        event.preventDefault();
+        if (canScrub) moveProgress(delta);
+        wheelGestureActive = true;
+        win.clearTimeout(wheelTimer);
+        wheelTimer = win.setTimeout(function () { wheelGestureActive = false; }, 220);
+      }
+    }
+    function onTouchStart(event) {
+      if (!heroIsPinned() || !event.touches || !event.touches.length) return;
+      touchY = event.touches[0].clientY;
+      touchGestureLocked = false;
+    }
+    function onTouchMove(event) {
+      if (touchY === null || !event.touches || !event.touches.length || !heroIsPinned()) return;
+      var nextY = event.touches[0].clientY;
+      var delta = touchY - nextY;
+      touchY = nextY;
+      var canScrub = (delta > 0 && progress < 1) || (delta < 0 && progress > 0);
+      if (canScrub || touchGestureLocked) {
+        event.preventDefault();
+        if (canScrub) moveProgress(delta);
+        touchGestureLocked = true;
+      }
+    }
+    function onTouchEnd() { touchY = null; touchGestureLocked = false; }
+    function onKeyDown(event) {
+      if (!heroIsPinned()) return;
+      var down = event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ' || event.key === 'Spacebar';
+      var up = event.key === 'ArrowUp' || event.key === 'PageUp';
+      if (!down && !up) return;
+      var canScrub = (down && progress < 1) || (up && progress > 0);
+      if (!canScrub) return;
+      event.preventDefault();
+      var step = event.key === 'ArrowDown' || event.key === 'ArrowUp' ? win.innerHeight * .04 : win.innerHeight * .5;
+      moveProgress((down ? 1 : -1) * step);
+    }
     video.addEventListener('loadedmetadata', schedule);
     video.addEventListener('seeked', function () { if (progress >= 1) video.pause(); });
-    on(win, 'scroll', schedule, { passive: true });
-    on(win, 'resize', schedule, { passive: true });
+    win.addEventListener('wheel', onWheel, { passive: false });
+    win.addEventListener('touchstart', onTouchStart, { passive: true });
+    win.addEventListener('touchmove', onTouchMove, { passive: false });
+    win.addEventListener('touchend', onTouchEnd, { passive: true });
+    win.addEventListener('touchcancel', onTouchEnd, { passive: true });
+    win.addEventListener('keydown', onKeyDown);
+    on(win, 'resize', schedule);
     schedule();
   }
 
