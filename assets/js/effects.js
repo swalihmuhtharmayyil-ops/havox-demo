@@ -453,7 +453,8 @@
     if (!hero || !video) return;
 
     var videoStage = video.closest('.hx-speaker-stage');
-    if (videoStage && videoStage.parentElement !== hero) hero.insertBefore(videoStage, hero.firstChild);
+    var heroWrap = hero.querySelector('.hero-section-wrap');
+    if (videoStage && heroWrap && videoStage.parentElement !== heroWrap) heroWrap.insertBefore(videoStage, heroWrap.firstChild);
     var heading = hero.querySelector('.hx-hero-heading');
     if (heading && !heading.dataset.hxKineticReady) {
       heading.innerHTML = heading.innerHTML
@@ -482,7 +483,7 @@
     function clamp01(value) { return Math.max(0, Math.min(1, value)); }
     function heroIsPinned() {
       var rect = hero.getBoundingClientRect();
-      return rect.top <= 1 && rect.bottom >= win.innerHeight - 1;
+      return rect.top >= -2 && rect.top <= 2;
     }
     function render() {
       queued = false;
