@@ -557,7 +557,12 @@
       var step = event.key === 'ArrowDown' || event.key === 'ArrowUp' ? win.innerHeight * .08 : win.innerHeight * .5;
       moveProgress((down ? 1 : -1) * step);
     }
-    video.addEventListener('loadedmetadata', schedule);
+    video.addEventListener('loadedmetadata', function () {
+      if (progress === 0) {
+        try { video.currentTime = Math.min(0.0001, video.duration); } catch (_) {}
+      }
+      schedule();
+    });
     video.addEventListener('seeked', function () { if (progress >= 1) video.pause(); });
     win.addEventListener('wheel', onWheel, { passive: false, capture: true });
     win.addEventListener('touchstart', onTouchStart, { passive: true });
