@@ -454,6 +454,19 @@
 
     var videoStage = video.closest('.hx-speaker-stage');
     if (videoStage && videoStage.parentElement !== hero) hero.insertBefore(videoStage, hero.firstChild);
+    var heading = hero.querySelector('.hx-hero-heading');
+    if (heading && !heading.dataset.hxKineticReady) {
+      heading.innerHTML = heading.innerHTML
+        .replace('Great ideas', '<span class="hx-title-run hx-title-run-a">Great ideas</span>')
+        .replace('need a ', '<span class="hx-title-run hx-title-run-b">need a</span> ');
+      var accentWord = heading.querySelector('span:not(.hx-title-run)');
+      if (accentWord) accentWord.classList.add('hx-title-run', 'hx-title-run-c');
+      heading.dataset.hxKineticReady = 'true';
+      heading.setAttribute('aria-label', 'Great ideas need a voice.');
+    }
+    var titleA = hero.querySelector('.hx-title-run-a');
+    var titleB = hero.querySelector('.hx-title-run-b');
+    var titleC = hero.querySelector('.hx-title-run-c');
 
     video.pause();
     video.removeAttribute('autoplay');
@@ -479,6 +492,11 @@
       hero.style.setProperty('--hero-content-opacity', (1 - progress * .2).toFixed(3));
       hero.style.setProperty('--hero-cta-y', reducedMotion ? '0px' : (-progress * 10).toFixed(1) + 'px');
       hero.style.setProperty('--hero-cta-opacity', (1 - progress * .16).toFixed(3));
+      var p = reducedMotion ? 0 : progress;
+      var drift = Math.min(54, win.innerWidth * .045);
+      if (titleA) { titleA.style.transform = 'translate3d(' + (-drift * p).toFixed(1) + 'px,' + (-30 * p).toFixed(1) + 'px,0) rotate(' + (-2.5 * p).toFixed(2) + 'deg) scale(' + (1 + .09 * p).toFixed(3) + ')'; titleA.style.opacity = (1 - .24 * p).toFixed(3); }
+      if (titleB) { titleB.style.transform = 'translate3d(' + (drift * .18 * p).toFixed(1) + 'px,' + (-10 * p).toFixed(1) + 'px,0) scale(' + (1 + .035 * p).toFixed(3) + ')'; }
+      if (titleC) { titleC.style.transform = 'translate3d(' + (drift * p).toFixed(1) + 'px,' + (18 * p).toFixed(1) + 'px,0) rotate(' + (2.5 * p).toFixed(2) + 'deg) scale(' + (1 + .15 * p).toFixed(3) + ')'; }
       if (Number.isFinite(video.duration) && video.duration > 0) {
         var targetTime = progress >= 1 ? Math.max(0, video.duration - 0.035) : progress * video.duration;
         if (Math.abs(video.currentTime - targetTime) > 0.025) {
