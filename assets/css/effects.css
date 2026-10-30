@@ -265,3 +265,18 @@ html.fx-cursor-on input,html.fx-cursor-on textarea,html.fx-cursor-on select{curs
 @media(max-width:767px){.hx-speaker-stage{width:min(92vw,480px);aspect-ratio:16/9;margin:-.6rem auto -1.1rem}.hx-speaker-video{object-position:66% 50%}}
 @media(max-width:380px){.hx-speaker-stage{width:100%;margin:-.3rem auto -.7rem}}
 @media(prefers-reduced-motion:reduce){.hx-speaker-video{display:none}}
+
+/* Scroll-scrubbed, pinned hero. The next section enters only after the clip. */
+.hx-neural-hero{height:200svh;min-height:0;overflow:clip!important;position:relative}
+.hx-neural-hero .hero-section-wrap{position:sticky;top:0;height:100svh!important;min-height:100svh!important;max-height:100svh;overflow:hidden;justify-content:center;padding:0!important}
+.hx-neural-hero .hero-section-wrap>.padding-global,.hx-neural-hero .container-base.hero{height:100%;width:100%;max-width:none}
+.hx-hero-layout{height:100%;min-height:0;overflow:hidden}
+.hx-speaker-stage{position:absolute!important;inset:0!important;z-index:0;width:auto!important;height:auto!important;aspect-ratio:auto!important;margin:0!important;border-radius:0;overflow:hidden;box-shadow:none;background:#08090b url(assets/videos/havox-hero-poster.jpg) 64% 50%/cover no-repeat}
+.hx-speaker-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(8,9,11,.96) 0%,rgba(8,9,11,.78) 34%,rgba(8,9,11,.2) 70%,rgba(8,9,11,.08) 100%)}
+.hx-speaker-video{z-index:0;transform:scale(var(--hero-video-scale,1));transform-origin:64% 50%;will-change:transform}
+.hx-hero-content{transform:translate3d(0,var(--hero-content-y,0px),0);opacity:var(--hero-content-opacity,1);transition:none;will-change:transform,opacity}
+.hx-hero-cta-row{transform:translate3d(0,var(--hero-cta-y,0px),0);opacity:var(--hero-cta-opacity,1);transition:none;will-change:transform,opacity}
+.hx-hero-content,.hx-hero-cta-row{position:relative;z-index:2}
+@media(max-width:991px){.hx-neural-hero .hero-section-wrap>.padding-global,.hx-neural-hero .container-base.hero{height:100%}.hx-hero-layout{padding:3rem 1.5rem 2rem}}
+@media(max-width:767px){.hx-neural-hero .hero-section-wrap{min-height:100svh!important;height:100svh!important;padding:0!important}.hx-neural-hero .hero-section-wrap>.padding-global,.hx-neural-hero .container-base.hero{height:100%}.hx-hero-layout{height:100%;min-height:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1rem;padding:7rem 1.25rem 2rem}.hx-hero-content{order:0;max-width:34rem}.hx-hero-heading{font-size:clamp(3.2rem,14vw,5rem)}.hx-speaker-stage{order:0;background-position:62% 50%}.hx-speaker-stage::after{background:linear-gradient(90deg,rgba(8,9,11,.82),rgba(8,9,11,.28)),linear-gradient(0deg,rgba(8,9,11,.65),transparent 65%)}.hx-speaker-video{object-position:62% 50%}.hx-hero-cta-row{order:0;flex-wrap:wrap;gap:1rem;padding:.25rem 0 0}}
+@media(prefers-reduced-motion:reduce){.hx-hero-content,.hx-hero-cta-row{transform:none;opacity:1;will-change:auto}.hx-speaker-video{transform:none;will-change:auto}}
