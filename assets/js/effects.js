@@ -449,13 +449,10 @@
 
   function initHeroScrollVideo() {
     var hero = d.querySelector('.hx-neural-hero');
-    var video = hero && hero.querySelector('.hx-speaker-video');
-    if (!hero || !video) return;
+    var canvas = hero && hero.querySelector('.hx-speaker-canvas');
+    if (!hero || !canvas) return;
 
-    var videoStage = video.closest('.hx-speaker-stage');
-    var heroWrap = hero.querySelector('.hero-section-wrap');
-    if (videoStage && heroWrap && videoStage.parentElement !== heroWrap) heroWrap.insertBefore(videoStage, heroWrap.firstChild);
-    var heading = hero.querySelector('.hx-hero-heading');
+        var heading = hero.querySelector('.hx-hero-heading');
     if (heading && !heading.dataset.hxKineticReady) {
       heading.innerHTML = heading.innerHTML
         .replace('Great ideas', '<span class="hx-title-run hx-title-run-a">Great ideas</span>')
@@ -469,18 +466,42 @@
     var titleB = hero.querySelector('.hx-title-run-b');
     var titleC = hero.querySelector('.hx-title-run-c');
 
-    video.pause();
-    video.removeAttribute('autoplay');
-    video.preload = 'auto';
-
     var queued = false;
     var progress = 0;
+    var frameCount = Number(canvas.dataset.frameCount) || 100;
+    var framesPerAtlas = 10;
+    var atlasCache = Object.create(null);
+    var context = canvas.getContext('2d', { alpha: false });
     var wheelGestureActive = false;
     var wheelTimer = 0;
     var touchY = null;
     var touchGestureLocked = false;
     var reducedMotion = win.matchMedia && win.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function clamp01(value) { return Math.max(0, Math.min(1, value)); }
+    function getAtlas(index) {
+      if (index < 0 || index >= Math.ceil(frameCount / framesPerAtlas)) return null;
+      if (!atlasCache[index]) {
+        var image = new Image();
+        image.decoding = 'async';
+        image.onload = schedule;
+        image.src = '/assets/images/hero-frames/hero-frames-' + String(index).padStart(2, '0') + '.webp';
+        atlasCache[index] = image;
+      }
+      return atlasCache[index];
+    }
+    function drawFrame() {
+      var frameIndex = Math.min(frameCount - 1, Math.round(progress * (frameCount - 1)));
+      var atlasIndex = Math.floor(frameIndex / framesPerAtlas);
+      var atlas = getAtlas(atlasIndex);
+      getAtlas(atlasIndex + 1);
+      Object.keys(atlasCache).forEach(function (key) {
+        if (Math.abs(Number(key) - atlasIndex) > 1) delete atlasCache[key];
+      });
+      if (atlas && atlas.complete && atlas.naturalWidth) {
+        var frameInAtlas = frameIndex % framesPerAtlas;
+        context.drawImage(atlas, 0, frameInAtlas * 720, 1280, 720, 0, 0, canvas.width, canvas.height);
+      }
+    }
     function heroIsPinned() {
       var rect = hero.getBoundingClientRect();
       return rect.top >= -2 && rect.top <= 2;
@@ -498,12 +519,7 @@
       if (titleA) { titleA.style.transform = 'translate3d(' + (-drift * p).toFixed(1) + 'px,' + (-30 * p).toFixed(1) + 'px,0) rotate(' + (-2.5 * p).toFixed(2) + 'deg) scale(' + (1 + .09 * p).toFixed(3) + ')'; titleA.style.opacity = (1 - .24 * p).toFixed(3); }
       if (titleB) { titleB.style.transform = 'translate3d(' + (drift * .18 * p).toFixed(1) + 'px,' + (-10 * p).toFixed(1) + 'px,0) scale(' + (1 + .035 * p).toFixed(3) + ')'; }
       if (titleC) { titleC.style.transform = 'translate3d(' + (drift * p).toFixed(1) + 'px,' + (18 * p).toFixed(1) + 'px,0) rotate(' + (2.5 * p).toFixed(2) + 'deg) scale(' + (1 + .15 * p).toFixed(3) + ')'; }
-      if (Number.isFinite(video.duration) && video.duration > 0) {
-        var targetTime = progress >= 1 ? Math.max(0, video.duration - 0.035) : progress * video.duration;
-        if (Math.abs(video.currentTime - targetTime) > 0.025) {
-          try { video.currentTime = targetTime; } catch (_) {}
-        }
-      }
+      drawFrame();
     }
     function schedule() {
       if (queued) return;
@@ -557,13 +573,6 @@
       var step = event.key === 'ArrowDown' || event.key === 'ArrowUp' ? win.innerHeight * .08 : win.innerHeight * .5;
       moveProgress((down ? 1 : -1) * step);
     }
-    video.addEventListener('loadedmetadata', function () {
-      if (progress === 0) {
-        try { video.currentTime = Math.min(0.0001, video.duration); } catch (_) {}
-      }
-      schedule();
-    });
-    video.addEventListener('seeked', function () { if (progress >= 1) video.pause(); });
     win.addEventListener('wheel', onWheel, { passive: false, capture: true });
     win.addEventListener('touchstart', onTouchStart, { passive: true });
     win.addEventListener('touchmove', onTouchMove, { passive: false, capture: true });
