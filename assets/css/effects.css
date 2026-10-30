@@ -283,3 +283,6 @@ html.fx-cursor-on input,html.fx-cursor-on textarea,html.fx-cursor-on select{curs
 
 /* Keep the scroll-scrubbed stage full viewport width inside the centered hero layout. */
 .hx-neural-hero .hx-speaker-stage{left:50%!important;right:auto!important;width:100vw!important;height:100svh!important;transform:translateX(-50%)!important}
+
+/* Anchor the video layer to the viewport while the hero clips its scroll lifetime. */
+.hx-neural-hero .hx-speaker-stage{position:fixed!important;inset:0!important;left:0!important;right:0!important;top:0!important;bottom:0!important;width:100vw!important;height:100svh!important;transform:none!important}
