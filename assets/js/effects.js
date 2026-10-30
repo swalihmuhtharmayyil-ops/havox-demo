@@ -447,9 +447,53 @@
     });
   }
 
+  function initHeroScrollVideo() {
+    var hero = d.querySelector('.hx-neural-hero');
+    var video = hero && hero.querySelector('.hx-speaker-video');
+    if (!hero || !video) return;
+
+    video.pause();
+    video.removeAttribute('autoplay');
+    video.preload = 'auto';
+
+    var queued = false;
+    var progress = 0;
+    var reducedMotion = win.matchMedia && win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function clamp01(value) { return Math.max(0, Math.min(1, value)); }
+    function render() {
+      queued = false;
+      var rect = hero.getBoundingClientRect();
+      var range = Math.max(1, hero.offsetHeight - win.innerHeight);
+      progress = clamp01(-rect.top / range);
+      hero.style.setProperty('--hero-progress', progress.toFixed(4));
+      hero.style.setProperty('--hero-video-scale', reducedMotion ? '1' : (1 + progress * .045).toFixed(4));
+      hero.style.setProperty('--hero-content-y', reducedMotion ? '0px' : (-progress * 20).toFixed(1) + 'px');
+      hero.style.setProperty('--hero-content-opacity', (1 - progress * .2).toFixed(3));
+      hero.style.setProperty('--hero-cta-y', reducedMotion ? '0px' : (-progress * 10).toFixed(1) + 'px');
+      hero.style.setProperty('--hero-cta-opacity', (1 - progress * .16).toFixed(3));
+      if (Number.isFinite(video.duration) && video.duration > 0) {
+        var targetTime = progress >= 1 ? Math.max(0, video.duration - 0.035) : progress * video.duration;
+        if (Math.abs(video.currentTime - targetTime) > 0.025) {
+          try { video.currentTime = targetTime; } catch (_) {}
+        }
+      }
+    }
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      win.requestAnimationFrame(render);
+    }
+    video.addEventListener('loadedmetadata', schedule);
+    video.addEventListener('seeked', function () { if (progress >= 1) video.pause(); });
+    on(win, 'scroll', schedule, { passive: true });
+    on(win, 'resize', schedule, { passive: true });
+    schedule();
+  }
+
   /* ---------------- init ---------------- */
   function layoutAll() { if (hs && hs.layout) hs.layout(); }
   function init() {
+    initHeroScrollVideo();
     initWaves();
     initReveal();
     initScrollText();
